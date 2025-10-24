@@ -1,10 +1,356 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import React from 'react';
+import { 
+  View, 
+  Text, 
+  StyleSheet, 
+  ScrollView, 
+  TextInput, 
+  TouchableOpacity, 
+  StatusBar 
+} from 'react-native';
+// Importamos los íconos de Expo
+import { Feather, FontAwesome, MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
 
-export default function HomeScreen() {
-  return (
-    <View>
-      <Text>HomeScreen</Text>
+// --- Componente del Encabezado (Sección Azul) ---
+const Header = () => (
+  <View style={styles.header}>
+    {/* Barra superior con trofeo, búsqueda y campana */}
+    <View style={styles.topBar}>
+      <Feather name="award" size={24} color="white" />
+      <View style={styles.searchBox}>
+        <Feather name="search" size={20} color="#AED6FF" />
+        <TextInput
+          placeholder="Search 'Payments'"
+          placeholderTextColor="#AED6FF"
+          style={styles.searchInput}
+        />
+      </View>
+      <Ionicons name="notifications-outline" size={26} color="white" />
     </View>
-  )
+    
+    {/* Sección de Saldo */}
+    <View style={styles.balanceSection}>
+      <Text style={styles.balanceCurrency}>US Dollar</Text>
+      <Text style={styles.balanceAmount}>$20,000</Text>
+      <Text style={styles.balanceLabel}>Available Balance</Text>
+    </View>
+
+    {/* Botón de Añadir Dinero */}
+    <TouchableOpacity style={styles.addMoneyButton}>
+      <FontAwesome name="plus-square-o" size={20} color="#347AF0" />
+      <Text style={styles.addMoneyText}>Add Money</Text>
+    </TouchableOpacity>
+  </View>
+);
+
+// --- Componente de Acciones (Enviar, Pedir, Banco) ---
+const ActionButton = ({ icon, label, bgColor }) => (
+  <TouchableOpacity style={styles.actionItem}>
+    <View style={[styles.actionIconCircle, { backgroundColor: bgColor }]}>
+      {icon}
+    </View>
+    <Text style={styles.actionLabel}>{label}</Text>
+  </TouchableOpacity>
+);
+
+const Actions = () => (
+  <View style={styles.actionsContainer}>
+    <ActionButton 
+      icon={<FontAwesome name="send" size={22} color="#347AF0" />}
+      label="Send" 
+      bgColor="#EAF2FF" // Azul claro
+    />
+    <ActionButton 
+      icon={<FontAwesome name="money" size={22} color="#F5A623" />}
+      label="Request" 
+      bgColor="#FFF8E8" // Naranja claro
+    />
+    <ActionButton 
+      icon={<MaterialCommunityIcons name="bank" size={22} color="#505050" />}
+      label="Bank" 
+      bgColor="#F4F4F4" // Gris claro
+    />
+  </View>
+);
+
+// --- Componente de Transacciones ---
+const TransactionItem = ({ icon, title, amount, amountColor, bgColor }) => (
+  <TouchableOpacity style={styles.txItem}>
+    <View style={[styles.txIconCircle, { backgroundColor: bgColor }]}>
+      {icon}
+    </View>
+    <View style={styles.txDetails}>
+      <Text style={styles.txTitle}>{title}</Text>
+    </View>
+    <Text style={[styles.txAmount, { color: amountColor }]}>{amount}</Text>
+    <Feather name="chevron-right" size={20} color="#AAA" />
+  </TouchableOpacity>
+);
+
+const Transactions = () => (
+  <View style={styles.transactionsContainer}>
+    {/* Encabezado de la sección de transacciones */}
+    <View style={styles.transactionsHeader}>
+      <Text style={styles.transactionsTitle}>Transaction</Text>
+      <TouchableOpacity>
+        <Feather name="arrow-right" size={22} color="#555" />
+      </TouchableOpacity>
+    </View>
+    
+    {/* Lista de transacciones */}
+    <TransactionItem 
+      icon={<MaterialCommunityIcons name="credit-card-outline" size={24} color="#347AF0" />}
+      title="Spending"
+      amount="-$500"
+      amountColor="#E53935" // Rojo
+      bgColor="#EAF2FF" // Azul claro
+    />
+    <TransactionItem 
+      icon={<MaterialCommunityIcons name="arrow-bottom-left" size={24} color="#4CAF50" />}
+      title="Income"
+      amount="$3000"
+      amountColor="#4CAF50" // Verde
+      bgColor="#E8F5E9" // Verde claro
+    />
+    <TransactionItem 
+      icon={<MaterialCommunityIcons name="receipt" size={24} color="#F5A623" />}
+      title="Bills"
+      amount="-$800"
+      amountColor="#E53935" // Rojo
+      bgColor="#FFF8E8" // Naranja claro
+    />
+    <TransactionItem 
+      icon={<MaterialCommunityIcons name="piggy-bank-outline" size={24} color="#7E57C2" />}
+      title="Savings"
+      amount="$1000"
+      amountColor="#4CAF50" // Verde
+      bgColor="#F3E5F5" // Morado claro
+    />
+  </View>
+);
+
+// --- Componente de la Barra de Navegación Inferior ---
+const BottomTabs = () => (
+  <View style={styles.bottomTabs}>
+    <TouchableOpacity style={styles.tabItem}>
+      <Feather name="home" size={28} color="#347AF0" />
+    </TouchableOpacity>
+    <TouchableOpacity style={styles.tabItem}>
+      <Feather name="clock" size={28} color="#AAA" />
+    </TouchableOpacity>
+    {/* Botón central especial */}
+    <TouchableOpacity style={styles.centralTabButton}>
+      <Feather name="grid" size={28} color="white" />
+    </TouchableOpacity>
+    <TouchableOpacity style={styles.tabItem}>
+      <Feather name="message-square" size={28} color="#AAA" />
+    </TouchableOpacity>
+    <TouchableOpacity style={styles.tabItem}>
+      <Feather name="user" size={28} color="#AAA" />
+    </TouchableOpacity>
+  </View>
+);
+
+// --- Componente Principal de la App ---
+export default function App() {
+  return (
+    <View style={styles.container}>
+      {/* Barra de estado con texto claro */}
+      <StatusBar barStyle="light-content" />
+      
+      {/* Encabezado Azul */}
+      <Header /> 
+      
+      {/* Área de Contenido Blanca (con scroll) */}
+      <ScrollView 
+        style={styles.contentArea}
+        showsVerticalScrollIndicator={false}
+      >
+        <Actions />
+        <Transactions />
+      </ScrollView>
+      
+      {/* Barra de Navegación Inferior */}
+      <BottomTabs />
+    </View>
+  );
 }
+
+// --- Hoja de Estilos ---
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#347AF0', // Color azul de fondo para el área del header
+  },
+  // Estilos del Encabezado
+  header: {
+    paddingTop: 60, // Espacio para la barra de estado
+    paddingHorizontal: 20,
+    paddingBottom: 70, // Espacio para que el contenido blanco se solape
+  },
+  topBar: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  searchBox: {
+    flex: 1,
+    flexDirection: 'row',
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    borderRadius: 10,
+    padding: 10,
+    marginHorizontal: 15,
+    alignItems: 'center',
+  },
+  searchInput: {
+    color: 'white',
+    marginLeft: 10,
+    flex: 1,
+    fontSize: 14,
+  },
+  balanceSection: {
+    alignItems: 'center',
+    marginTop: 25,
+  },
+  balanceCurrency: {
+    color: '#AED6FF',
+    fontSize: 14,
+  },
+  balanceAmount: {
+    color: 'white',
+    fontSize: 40,
+    fontWeight: 'bold',
+    marginTop: 5,
+  },
+  balanceLabel: {
+    color: '#AED6FF',
+    fontSize: 14,
+    marginTop: 5,
+  },
+  addMoneyButton: {
+    flexDirection: 'row',
+    backgroundColor: 'white',
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignSelf: 'center',
+    marginTop: 25,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  addMoneyText: {
+    color: '#347AF0',
+    fontSize: 16,
+    fontWeight: '600',
+    marginLeft: 10,
+  },
+  // Área de Contenido Principal
+  contentArea: {
+    flex: 1,
+    backgroundColor: 'white',
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    marginTop: -40, // Clave para el efecto de superposición
+    paddingTop: 10,
+  },
+  // Estilos de Acciones
+  actionsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    paddingVertical: 20,
+  },
+  actionItem: {
+    alignItems: 'center',
+  },
+  actionIconCircle: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 8,
+  },
+  actionLabel: {
+    fontSize: 14,
+    fontWeight: '500',
+    color: '#333',
+  },
+  // Estilos de Transacciones
+  transactionsContainer: {
+    paddingHorizontal: 20,
+    marginTop: 10,
+    paddingBottom: 20, // Espacio al final
+  },
+  transactionsHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 15,
+  },
+  transactionsTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#333',
+  },
+  txItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 12,
+  },
+  txIconCircle: {
+    width: 45,
+    height: 45,
+    borderRadius: 22.5,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 15,
+  },
+  txDetails: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  txTitle: {
+    fontSize: 16,
+    fontWeight: '500',
+    color: '#222',
+  },
+  txAmount: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginRight: 10,
+  },
+  // Estilos de la Barra Inferior
+  bottomTabs: {
+    flexDirection: 'row',
+    height: 90, // Altura extra para el botón central y safe area
+    borderTopWidth: 1,
+    borderTopColor: '#EEE',
+    backgroundColor: 'white',
+    alignItems: 'center',
+    paddingBottom: 20, // Espacio para safe area en iOS
+  },
+  tabItem: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  centralTabButton: {
+    width: 60,
+    height: 60,
+    borderRadius: 15, // Como en la imagen
+    backgroundColor: '#347AF0',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: -30, // Tira el botón hacia arriba
+    shadowColor: '#347AF0',
+    shadowOffset: { width: 0, height: 5 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 6,
+  },
+});
