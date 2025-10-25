@@ -1,30 +1,52 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import HomeScreen from './screens/HomeScreen.js';
+
+import Onboarding1 from './screens/Onboarding1';
+import Onboarding2 from './screens/Onboarding2';
+import Onboarding3 from './screens/Onboarding3';
+import LoginScreen from './screens/LoginScreen';
+import HomeScreen from './screens/HomeScreen';
+import SingUp from './screens/SingUp';
 
 const Stack = createNativeStackNavigator();
-
-function WelcomeScreen({ navigation }) {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Bienvenido a Fintech Mobile App</Text>
-      <Button
-        title="Ir a Home Screen"
-        onPress={() => navigation.navigate('Home')}
-      />
-      <StatusBar style="auto" />
-    </View>
-  );
-}
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Inicio">
-        <Stack.Screen name="Inicio" component={WelcomeScreen} />
-        <Stack.Screen name="Home" component={HomeScreen} />
+      <StatusBar style="auto" />
+      <Stack.Navigator initialRouteName="Onboarding1">
+        <Stack.Screen 
+          name="Onboarding1" 
+          component={Onboarding1} 
+          options={{ headerShown: false }} 
+        />
+        <Stack.Screen 
+          name="Onboarding2" 
+          component={Onboarding2} 
+          options={{ headerShown: false }} 
+        />
+        <Stack.Screen 
+          name="Onboarding3" 
+          component={Onboarding3} 
+          options={{ headerShown: false }} 
+        />
+        <Stack.Screen 
+          name="SingUp" 
+          component={SingUp} 
+          options={{ headerShown: false }} 
+        />
+        <Stack.Screen 
+          name="Login" 
+          component={LoginScreen} 
+          options={{ headerShown: false }} 
+        />
+        <Stack.Screen 
+          name="Home" 
+          component={HomeScreen} 
+          options={{ headerShown: false }} 
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -33,14 +55,5 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingHorizontal: 20,
-  },
-  text: {
-    fontSize: 18,
-    marginBottom: 20,
-    textAlign: 'center',
   },
 });

@@ -20,7 +20,7 @@ const Header = () => (
       <View style={styles.searchBox}>
         <Feather name="search" size={20} color="#AED6FF" />
         <TextInput
-          placeholder="Search 'Payments'"
+          placeholder="Buscar 'Pagos'"
           placeholderTextColor="#AED6FF"
           style={styles.searchInput}
         />
@@ -30,15 +30,15 @@ const Header = () => (
     
     {/* Sección de Saldo */}
     <View style={styles.balanceSection}>
-      <Text style={styles.balanceCurrency}>US Dollar</Text>
-      <Text style={styles.balanceAmount}>$20,000</Text>
-      <Text style={styles.balanceLabel}>Available Balance</Text>
+      <Text style={styles.balanceCurrency}>ES Soles</Text>
+      <Text style={styles.balanceAmount}>S/20,000</Text>
+      <Text style={styles.balanceLabel}>Saldo disponible</Text>
     </View>
 
     {/* Botón de Añadir Dinero */}
     <TouchableOpacity style={styles.addMoneyButton}>
       <FontAwesome name="plus-square-o" size={20} color="#347AF0" />
-      <Text style={styles.addMoneyText}>Add Money</Text>
+      <Text style={styles.addMoneyText}>Añadir dinero</Text>
     </TouchableOpacity>
   </View>
 );
@@ -57,17 +57,17 @@ const Actions = () => (
   <View style={styles.actionsContainer}>
     <ActionButton 
       icon={<FontAwesome name="send" size={22} color="#347AF0" />}
-      label="Send" 
+      label="Enviar" 
       bgColor="#EAF2FF" // Azul claro
     />
     <ActionButton 
       icon={<FontAwesome name="money" size={22} color="#F5A623" />}
-      label="Request" 
+      label="Pedido" 
       bgColor="#FFF8E8" // Naranja claro
     />
     <ActionButton 
       icon={<MaterialCommunityIcons name="bank" size={22} color="#505050" />}
-      label="Bank" 
+      label="Banco" 
       bgColor="#F4F4F4" // Gris claro
     />
   </View>
@@ -91,7 +91,7 @@ const Transactions = () => (
   <View style={styles.transactionsContainer}>
     {/* Encabezado de la sección de transacciones */}
     <View style={styles.transactionsHeader}>
-      <Text style={styles.transactionsTitle}>Transaction</Text>
+      <Text style={styles.transactionsTitle}>Transacciones</Text>
       <TouchableOpacity>
         <Feather name="arrow-right" size={22} color="#555" />
       </TouchableOpacity>
@@ -100,29 +100,29 @@ const Transactions = () => (
     {/* Lista de transacciones */}
     <TransactionItem 
       icon={<MaterialCommunityIcons name="credit-card-outline" size={24} color="#347AF0" />}
-      title="Spending"
-      amount="-$500"
+      title="Gasto"
+      amount="-S/500"
       amountColor="#E53935" // Rojo
       bgColor="#EAF2FF" // Azul claro
     />
     <TransactionItem 
       icon={<MaterialCommunityIcons name="arrow-bottom-left" size={24} color="#4CAF50" />}
-      title="Income"
-      amount="$3000"
+      title="Ingreso"
+      amount="S/3000"
       amountColor="#4CAF50" // Verde
       bgColor="#E8F5E9" // Verde claro
     />
     <TransactionItem 
       icon={<MaterialCommunityIcons name="receipt" size={24} color="#F5A623" />}
-      title="Bills"
-      amount="-$800"
+      title="Facturas"
+      amount="-S/800"
       amountColor="#E53935" // Rojo
       bgColor="#FFF8E8" // Naranja claro
     />
     <TransactionItem 
       icon={<MaterialCommunityIcons name="piggy-bank-outline" size={24} color="#7E57C2" />}
-      title="Savings"
-      amount="$1000"
+      title="Ahorros"
+      amount="S/1000"
       amountColor="#4CAF50" // Verde
       bgColor="#F3E5F5" // Morado claro
     />
