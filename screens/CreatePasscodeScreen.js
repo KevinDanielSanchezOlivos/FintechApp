@@ -51,7 +51,7 @@ export default function CreatePasscodeScreen({ navigation }) {
       {pin.length === 4 && (
         <TouchableOpacity
           style={styles.button}
-          onPress={() => navigation.navigate("Home")}
+          onPress={() => navigation.navigate("AddEmailScreen")}
         >
           <Text style={styles.buttonText}>Continue</Text>
         </TouchableOpacity>
